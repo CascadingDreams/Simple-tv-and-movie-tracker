@@ -1,0 +1,18 @@
+# Ignore Git-related files
+.git
+.gitignore
+
+# Ignore build artifacts and temporary files
+node_modules/
+dist/
+build/
+*.log
+tmp/
+
+# Ignore sensitive environment files
+.env
+.env.*
+
+# Ignore specific file types
+*.md
+*.DS_Store
