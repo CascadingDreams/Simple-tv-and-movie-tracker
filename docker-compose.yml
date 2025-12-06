@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: streamtracker_db
+    environment:
+      POSTGRES_USER: streamtracker
+      POSTGRES_PASSWORD: streamtracker123
+      POSTGRES_DB: streamtracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U streamtracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: streamtracker_backend
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgresql://streamtracker:streamtracker123@db:5432/streamtracker
+      SECRET_KEY: dev-secret-key-change-later
+      TMDB_API_KEY: "cecc549a14310092d5250896ffb47b6e"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+
+volumes:
+  postgres_data:

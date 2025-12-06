@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.flaskenv
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+
+# Database
+*.sqlite3
+*.db
+data/
+db.sqlite
+migrations/versions/
+
+# IDE specific files (e.g., VS Code)
+.vscode/
+
+# Operating System specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
