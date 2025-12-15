@@ -10,4 +10,4 @@ def init_db(app):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from . import user #, media, genre, watchlist, history, rating
+    from . import user, media, genre, watchlist, history, rating
