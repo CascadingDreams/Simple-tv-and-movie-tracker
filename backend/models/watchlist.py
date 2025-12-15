@@ -3,7 +3,7 @@ from . import db
 
 
 class Watchlist(db.Model):
-    """Watchlist model - tracks user's media list with status"""
+    """Watchlist model tracks user's media list with status"""
 
     __tablename__ = "watchlist"
 
