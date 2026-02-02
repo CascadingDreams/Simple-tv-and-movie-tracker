@@ -7,6 +7,15 @@ app.config.from_object(Config)
 
 init_db(app)
 
+from models.user import User
+from models.media import Media
+from models.genre import Genre
+from models.watchlist import Watchlist
+from models.history import History
+from models.rating import Rating
+from models.people import Person
+from models import associations
+
 
 @app.route("/")
 def home():
