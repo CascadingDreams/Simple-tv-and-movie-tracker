@@ -12,9 +12,7 @@ class Genre(db.Model):
     name = db.Column(db.String(50), nullable=False, index=True)
 
     # Genre can belong to many media
-    media_items = db.relationship(
-        "Media", secondary=media_genres, back_populates="genres"
-    )
+    media = db.relationship("Media", secondary="media_genres", back_populates="genres")
 
     def __repr__(self):
         return f"<Genre {self.name}>"

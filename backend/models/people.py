@@ -15,7 +15,7 @@ class Person(db.Model):
 
     # people can be associated with many media
     media_credits = db.relationship(
-        "Person", secondary=media_people, back_populates="people"
+        "Media", secondary="media_people", back_populates="people"
     )
 
     def __repr__(self):

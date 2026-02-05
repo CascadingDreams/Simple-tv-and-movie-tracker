@@ -5,7 +5,7 @@ from . import db
 class User(db.Model):
     """User model for auth and user data"""
 
-    __tablename__ = "user"
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
 
     # user auth fields

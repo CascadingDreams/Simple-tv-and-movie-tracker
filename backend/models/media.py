@@ -42,5 +42,21 @@ class Media(db.Model):
     # Media can have multiple genres
     genres = db.relationship("Genre", secondary="media_genres", back_populates="media")
 
+    watchlist_entries = db.relationship(
+        "Watchlist",
+        back_populates="media",
+        cascade="all, delete-orphan",
+        lazy="dynamic",
+    )
+    history_entries = db.relationship(
+        "History", back_populates="media", cascade="all, delete-orphan", lazy="dynamic"
+    )
+    ratings = db.relationship(
+        "Rating", back_populates="media", cascade="all, delete-orphan", lazy="dynamic"
+    )
+    people = db.relationship(
+        "Person", secondary="media_people", back_populates="media_credits"
+    )
+
     def __repr__(self):
         return f"<Media {self.title} ({self.media_type})>"
