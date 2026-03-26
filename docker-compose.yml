@@ -4,16 +4,17 @@ services:
   db:
     image: postgres:15
     container_name: streamtracker_db
+    env_file: .env
     environment:
-      POSTGRES_USER: streamtracker
-      POSTGRES_PASSWORD: streamtracker123
-      POSTGRES_DB: streamtracker
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U streamtracker"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -21,17 +22,24 @@ services:
   backend:
     build: ./backend
     container_name: streamtracker_backend
+    env_file: .env
     ports:
       - "5000:5000"
-    environment:
-      DATABASE_URL: postgresql://streamtracker:streamtracker123@db:5432/streamtracker
-      SECRET_KEY: dev-secret-key-change-later
-      TMDB_API_KEY: "cecc549a14310092d5250896ffb47b6e"
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./backend:/app
+
+  frontend:
+    image: nginx:alpine
+    container_name: streamtracker_frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
