@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000';
+const API = window.BACKEND_URL || 'http://localhost:5000';
 const TMDB_IMG = 'https://image.tmdb.org/t/p/w300';
 
 let token = localStorage.getItem('token');
