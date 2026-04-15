@@ -12,7 +12,12 @@ async function api(method, path, body = null) {
     const opts = { method, headers: { 'Content-Type': 'application/json' } };
     if (token) opts.headers['Authorization'] = `Bearer ${token}`;
     if (body) opts.body = JSON.stringify(body);
-    const res = await fetch(`${API}${path}`, opts);
+    let res;
+    try {
+        res = await fetch(`${API}${path}`, opts);
+    } catch {
+        throw new Error('Backend not available \u2014 check back soon');
+    }
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Request failed');
     return data;
