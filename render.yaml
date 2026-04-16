@@ -6,16 +6,10 @@ services:
     dockerContext: ./backend
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: streamtracker-db
-          property: connectionString
+        sync: false
       - key: SECRET_KEY
         generateValue: true
       - key: JWT_SECRET_KEY
         generateValue: true
       - key: TMDB_API_KEY
         sync: false
-
-databases:
-  - name: streamtracker-db
-    plan: free
