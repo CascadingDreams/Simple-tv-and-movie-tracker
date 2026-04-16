@@ -8,20 +8,19 @@ from models import init_db
 app = Flask(__name__)
 app.config.from_object(Config)
 
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "https://stream-tracker-sh.vercel.app").split(",")
+CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
 JWTManager(app)
 init_db(app)
 
 from routes.auth import bp as auth_bp
 from routes.media import bp as media_bp
 from routes.watchlist import bp as watchlist_bp
-from routes.history import bp as history_bp
 from routes.ratings import bp as ratings_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(media_bp)
 app.register_blueprint(watchlist_bp)
-app.register_blueprint(history_bp)
 app.register_blueprint(ratings_bp)
 
 

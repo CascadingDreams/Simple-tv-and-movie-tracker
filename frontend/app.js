@@ -60,7 +60,6 @@ function showTab(name) {
         s.classList.toggle('hidden', !active);
     });
     if (name === 'watchlist') loadWatchlist();
-    if (name === 'history')   loadHistory();
     if (name === 'ratings')   loadRatings();
 }
 
@@ -108,9 +107,6 @@ function mediaCard(m) {
                     <button class="btn-primary"
                         onclick="addToWatchlist(${m.tmdb_id},'${m.media_type}','${esc(m.title)}')">
                         + Watchlist
-                    </button>
-                    <button onclick="addToHistory(${m.tmdb_id},'${m.media_type}','${esc(m.title)}')">
-                        Mark Watched
                     </button>
                     <button onclick="openRateModal(${m.tmdb_id},'${m.media_type}','${esc(m.title)}')">
                         Rate
@@ -181,63 +177,6 @@ async function removeFromWatchlist(id) {
     try {
         await api('DELETE', `/api/watchlist/${id}`);
         document.getElementById(`wl-${id}`)?.remove();
-    } catch (e) {
-        alert(e.message);
-    }
-}
-
-// ── History ─────────────────────────────────────────────────────────────────
-
-async function addToHistory(tmdb_id, media_type, title) {
-    if (!token) { alert('Please log in first.'); return; }
-    try {
-        await api('POST', '/api/history', { tmdb_id, media_type });
-        alert(`"${title}" added to history.`);
-    } catch (e) {
-        alert(e.message);
-    }
-}
-
-async function loadHistory() {
-    const container = document.getElementById('history-content');
-    if (!token) {
-        container.innerHTML = '<p class="empty-msg">Log in to view your history.</p>';
-        return;
-    }
-    try {
-        const entries = await api('GET', '/api/history');
-        container.innerHTML = entries.length
-            ? entries.map(historyItem).join('')
-            : '<p class="empty-msg">No watch history yet.</p>';
-    } catch (e) {
-        container.innerHTML = `<p class="empty-msg">${e.message}</p>`;
-    }
-}
-
-function historyItem(e) {
-    const m = e.media;
-    const date = new Date(e.watched_at).toLocaleDateString();
-    return `
-        <div class="list-item" id="hist-${e.id}">
-            ${posterImg(m.poster_path, m.title)}
-            <div class="item-info">
-                <div class="item-title">${m.title}</div>
-                <div class="item-meta">
-                    <span class="badge ${m.media_type}">${m.media_type === 'tv' ? 'TV' : 'Movie'}</span>
-                    Watched ${date}
-                </div>
-                <div class="item-actions">
-                    <button class="btn-rate" onclick="openRateModal(${m.tmdb_id},'${m.media_type}','${esc(m.title)}')">Rate</button>
-                    <button class="btn-remove" onclick="removeFromHistory(${e.id})">Remove</button>
-                </div>
-            </div>
-        </div>`;
-}
-
-async function removeFromHistory(id) {
-    try {
-        await api('DELETE', `/api/history/${id}`);
-        document.getElementById(`hist-${id}`)?.remove();
     } catch (e) {
         alert(e.message);
     }

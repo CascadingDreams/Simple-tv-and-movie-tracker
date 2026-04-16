@@ -26,10 +26,6 @@ class User(db.Model):
         lazy="dynamic",  # returns query object instead of list - can filter
     )
 
-    history = db.relationship(
-        "History", back_populates="user", cascade="all, delete-orphan", lazy="dynamic"
-    )
-
     ratings = db.relationship(
         "Rating", back_populates="user", cascade="all, delete-orphan", lazy="dynamic"
     )

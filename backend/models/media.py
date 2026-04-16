@@ -34,11 +34,6 @@ class Media(db.Model):
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
     )
 
-    # to add relationships
-    # watchlist
-    # history
-    # ratings
-
     # Media can have multiple genres
     genres = db.relationship("Genre", secondary="media_genres", back_populates="media")
 
@@ -47,9 +42,6 @@ class Media(db.Model):
         back_populates="media",
         cascade="all, delete-orphan",
         lazy="dynamic",
-    )
-    history_entries = db.relationship(
-        "History", back_populates="media", cascade="all, delete-orphan", lazy="dynamic"
     )
     ratings = db.relationship(
         "Rating", back_populates="media", cascade="all, delete-orphan", lazy="dynamic"

@@ -11,13 +11,12 @@ def init_db(app):
     migrate.init_app(app, db)
 
     from . import associations
-    from . import user, media, genre, watchlist, history, rating, people
+    from . import user, media, genre, watchlist, rating, people
 
     from .user import User
     from .media import Media
     from .genre import Genre
     from .watchlist import Watchlist
-    from .history import History
     from .rating import Rating
     from .people import Person
 
@@ -29,7 +28,6 @@ def init_db(app):
         "Media",
         "Genre",
         "Watchlist",
-        "History",
         "Rating",
         "Person",
     ]

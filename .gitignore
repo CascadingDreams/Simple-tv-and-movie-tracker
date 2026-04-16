@@ -19,7 +19,6 @@ htmlcov/
 *.db
 data/
 db.sqlite
-migrations/versions/
 
 # IDE specific files (e.g., VS Code)
 .vscode/

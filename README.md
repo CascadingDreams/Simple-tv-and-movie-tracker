@@ -1,6 +1,12 @@
 # StreamTracker
 
-A simple TV and movie tracking app. Search for movies and shows, manage your watchlist, track your watch history, and leave ratings.
+A simple TV and movie tracking app. Search for movies and shows, manage your watchlist, and leave ratings.
+
+By [Samantha Hill](https://samanthahill.dev)
+
+## Live Demo
+
+[https://stream-tracker-sh.vercel.app/](https://stream-tracker-sh.vercel.app/)
 
 ## Screenshots
 
@@ -8,9 +14,12 @@ A simple TV and movie tracking app. Search for movies and shows, manage your wat
 
 ![Watchlist](docs/Streamtrackerwatchlist.png)
 
-![History](docs/Streamtrackerhistory.png)
-
 ![Ratings](docs/Streamtrackerratings.png)
+
+## Deployment
+
+- **Frontend:** Hosted on [Vercel](https://vercel.com)
+- **Backend:** Hosted on [Render](https://render.com)
 
 ## Stack
 
