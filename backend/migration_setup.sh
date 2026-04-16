@@ -4,7 +4,7 @@ set -e
 echo "Parsing database connection from DATABASE_URL..."
 # DATABASE_URL format: postgresql://user:password@host:port/dbname
 DB_HOST=$(echo "$DATABASE_URL" | sed -E 's|.*@([^:/]+)[:/].*|\1|')
-DB_PORT=$(echo "$DATABASE_URL" | sed -E 's|.*@[^:]+:([0-9]+)/.*|\1|')
+DB_PORT=$(echo "$DATABASE_URL" | sed -nE 's|.*@[^:]+:([0-9]+)/.*|\1|p')
 DB_USER=$(echo "$DATABASE_URL" | sed -E 's|.*://([^:]+):.*|\1|')
 
 # Default port if not present in URL
