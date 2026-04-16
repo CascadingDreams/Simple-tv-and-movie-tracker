@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -7,7 +8,7 @@ from models import init_db
 app = Flask(__name__)
 app.config.from_object(Config)
 
-CORS(app)
+CORS(app, origins=[os.environ.get("CORS_ORIGIN", "*")])
 JWTManager(app)
 init_db(app)
 
